@@ -1,0 +1,20 @@
+Her durak için bir klasör: 1, 2, 3 … 8 (haritadaki sıra; 1 en alttaki durak, 8 pastalı final).
+Klasör adına yazı da ekleyebilirsin: "6-makarayız" → durağın başlığı "Makarayız" olur.
+
+Klasörün içine:
+  - o anının fotoğrafları (JPG, PNG, WebP; iPhone HEIC ise önce JPG olarak aktar)
+  - yapboz.jpg  → o durağın oyununda (yapboz, kazı kazan) kullanılır
+  - kapak.jpg   → haritadaki yuvarlakta görünür (yoksa ilk fotoğraf)
+  - bilgi.txt (isteğe bağlı, UTF-8 kaydet):
+        Başlık: İlk tanıştığımız gün
+        Tarih: Eylül 2019
+        Yazı: Buraya kısa anını yaz.
+        Birden çok satır olabilir.
+        Kırpma: 0.5, 0.2      (yapbozun kare kırpma odağı: soldan, yukarıdan; 0–1 arası)
+
+npm run dev ya da npm run build çalışınca fotoğraflar otomatik olarak:
+  - küçültülür (önizleme 480px, tam boy 1600px), WebP yapılır,
+  - konum (GPS) ve cihaz bilgisi silinir,
+  - src/assets/pelo/ içine yazılır ve albümde görünür.
+
+Bu klasördeki orijinaller yayına girmez. Elle çalıştırmak için: npm run photos

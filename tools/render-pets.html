@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<title>Hayvan küpü render aracı</title>
+<style>
+  body { margin: 0; background: #333; color: #eee; font: 14px sans-serif; }
+  #ui { padding: 8px; }
+  #grid img { width: 96px; height: 96px; background: #555; margin: 2px; }
+</style>
+</head>
+<body>
+<div id="ui">yükleniyor…</div>
+<div id="grid"></div>
+<script type="module">
+// Geliştirme aracı: art-src/cube-pets/*.glb (Kenney Cube Pets, CC0) modellerini önden, hafif yukarıdan,
+// şeffaf zeminle render eder ve art-src/renders/pet-<ad>.png olarak kaydeder.
+// Kullanım: npm run dev → http://localhost:5173/tools/render-pets.html → sonra: npm run animals
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+
+const NAMES = ['beaver', 'bee', 'bunny', 'cat', 'caterpillar', 'chick', 'cow', 'crab', 'deer', 'dog', 'elephant', 'fish',
+  'fox', 'giraffe', 'hog', 'koala', 'lion', 'monkey', 'panda', 'parrot', 'penguin', 'pig', 'polar', 'tiger'];
+const SIZE = 560;
+/** Kamera yüksekliği (derece): üst yüz ince bir şerit olarak görünsün */
+const ELEVATION = 12;
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.setSize(SIZE, SIZE);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.setClearColor(0x000000, 0);
+
+const scene = new THREE.Scene();
+scene.add(new THREE.HemisphereLight(0xffffff, 0xd9c2cc, 2.2));
+const sun = new THREE.DirectionalLight(0xffffff, 1.6);
+sun.position.set(2, 4, 5);
+scene.add(sun);
+
+const ui = document.getElementById('ui');
+const grid = document.getElementById('grid');
+const loader = new GLTFLoader();
+
+async function renderOne(name) {
+  const gltf = await loader.loadAsync(`/art-src/cube-pets/animal-${name}.glb`);
+  const obj = gltf.scene;
+  scene.add(obj);
+  const box = new THREE.Box3().setFromObject(obj);
+  const center = box.getCenter(new THREE.Vector3());
+  const size = box.getSize(new THREE.Vector3());
+  // Her hayvan aynı ölçekte (gövde küpleri eşit boyda kalsın): sabit ortografik kare
+  const half = 1.25;
+  const cam = new THREE.OrthographicCamera(-half, half, half, -half, 0.01, 100);
+  const el = (ELEVATION * Math.PI) / 180;
+  cam.position.set(center.x, center.y + Math.sin(el) * 10, center.z + Math.cos(el) * 10);
+  cam.lookAt(center);
+  renderer.render(scene, cam);
+  const url = renderer.domElement.toDataURL('image/png');
+  scene.remove(obj);
+  const blob = await (await fetch(url)).blob();
+  await fetch(`/__save?name=pet-${name}.png`, { method: 'POST', body: blob });
+  const img = new Image(); img.src = url; img.title = `${name} ${size.x.toFixed(2)}×${size.y.toFixed(2)}`;
+  grid.append(img);
+}
+
+for (const n of NAMES) { ui.textContent = n + '…'; await renderOne(n); }
+ui.textContent = `bitti: ${NAMES.length} hayvan → art-src/renders/pet-*.png`;
+window.done = true;
+</script>
+</body>
+</html>

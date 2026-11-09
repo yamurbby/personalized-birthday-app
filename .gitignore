@@ -1,0 +1,36 @@
+node_modules
+dist
+dev-dist
+# Fotoğraflar: orijinaller (EXIF/konum içerebilir) ve üretilen kopyalar gite girmesin
+images/pelo/*
+!images/pelo/BENIOKU.txt
+src/assets/pelo/
+art-src/renders/v_*.png
+art-src/renders/_sheet*.png
+art-src/renders/avatars_preview.png
+# Avatar paketinin ham dosyaları (lisansı yeniden dağıtıma izin vermeyebilir)
+art-src/avatar-pack/
+# Hayvan küpü render'ları (npm run animals bunlardan src/assets/animals/ üretir; yeniden üretilebilir)
+art-src/renders/pet-*.png
+
+# Şarkı: telifli, herkese açık depoya girmesin
+images/muzik/*
+!images/muzik/BENIOKU.txt
+src/assets/music/
+
+# ---- Herkese açık depoda olmayanlar (kişisel ya da lisansı yeniden dağıtıma izin vermeyen) ----
+# Kişisel yazılar: mektup ve notlar (yerine *.ornek.* dosyalarına bak)
+src/content/dogum-gunu-notu.txt
+src/content/notes.ts
+src/content/bottle-notes.ts
+# Karakter görselleri (avatar paketi, lisansı belirsiz)
+src/assets/avatars/
+# Çiçek saksıları (Pinterest)
+src/assets/flowers/
+# "free fish" (moranovo): dosyanın kendisi yeniden dağıtılamaz
+src/assets/fish/free-fish.png
+# Ham kaynak dosyalar (3B modeller, render denemeleri, indirilen paketler)
+art-src/
+# Yerel ayar / araç dosyaları
+.claude/
+*.log

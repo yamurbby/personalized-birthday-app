@@ -1,0 +1,7 @@
+ÖRNEK: gerçek dosya dogum-gunu-notu.txt (kişisel olduğu için depoda yok).
+Haritanın sonunda, mumlar üflendikten sonra simli zarftan çıkan mektup.
+Düz metin; paragraflar arasına boş satır bırak.
+
+Sevgili …,
+
+İyi ki doğdun!

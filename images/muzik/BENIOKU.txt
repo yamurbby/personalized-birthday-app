@@ -1,0 +1,4 @@
+Odada "Müzik aç" ile çalan şarkıyı buraya koy.
+Dosya adı: cingenem.mp3 (ya da .m4a/.ogg/.wav). Adı src/content/music.ts içindeki file ile aynı olmalı.
+Şarkının hangi saniyeden başlayıp kaç saniye çalacağı da o dosyada (start, length).
+npm run dev / build şarkıyı kendiliğinden keser ve hafifletir. Bu klasördeki orijinal yayına girmez.

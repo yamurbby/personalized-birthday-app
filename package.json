@@ -1,0 +1,32 @@
+{
+  "name": "pelin-mola",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "predev": "node scripts/photos.mjs && node scripts/vangogh.mjs && node scripts/music.mjs",
+    "dev": "vite --host",
+    "prebuild": "node scripts/photos.mjs && node scripts/vangogh.mjs && node scripts/music.mjs",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host",
+    "photos": "node scripts/photos.mjs",
+    "icons": "node scripts/icons.mjs",
+    "avatars": "node scripts/avatars.mjs",
+    "animals": "node scripts/animals.mjs",
+    "vangogh": "node scripts/vangogh.mjs",
+    "music": "node scripts/music.mjs"
+  },
+  "dependencies": {
+    "preact": "^11.2.0"
+  },
+  "devDependencies": {
+    "@phosphor-icons/core": "^2.1.1",
+    "@preact/preset-vite": "^2.10.6",
+    "@types/node": "^26.6.6",
+    "sharp": "^0.35.5",
+    "three": "^0.187.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.6",
+    "vite-plugin-pwa": "^2.0.0"
+  }
+}
